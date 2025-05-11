@@ -23,7 +23,9 @@ const login = async (email: string, password: string) => {
 
   const {
     id,
-    gravatar,
+    avatar_url,
+    games_played,
+    games_won,
     password: encryptedPassword,
   } = await db.one(sql, [email]);
 
@@ -33,7 +35,7 @@ const login = async (email: string, password: string) => {
     throw new Error("Invalid credentials, try again.");
   }
 
-  return { id, gravatar, email };
+  return { id, avatar_url, games_played, games_won, email };
 };
 
 export default { register, login };

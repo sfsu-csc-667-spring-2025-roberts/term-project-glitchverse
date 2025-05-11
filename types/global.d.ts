@@ -3,7 +3,9 @@ import "express-session";
 export type User = {
   id: number;
   email: string;
-  gravatar: string;
+  avatar_url: string | null;
+  games_played: number;
+  games_won: number;
 };
 
 export type DbGameUser = {

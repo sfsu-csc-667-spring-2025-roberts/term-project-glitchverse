@@ -3,7 +3,7 @@
   <div class="menu">
     <a href="/auth/logout">Logout</a>
     <img
-      src="https://gravatar.com/avatar/<%= user.gravatar %>?d=identicon"
+      src="<%= user.avatar_url || `https://gravatar.com/avatar/${user.gravatar}?d=identicon` %>"
       alt="User Avatar"
       class="gravatar"
     />

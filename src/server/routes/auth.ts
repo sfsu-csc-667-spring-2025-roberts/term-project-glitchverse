@@ -25,6 +25,10 @@ router.post("/register", async (request: Request, response: Response) => {
   }
 });
 
+router.get("/login", async (_request: Request, response: Response) => {
+  response.render("auth/login-form");
+});
+
 router.post("/login", async (request: Request, response: Response) => {
   const { email, password } = request.body;
 
@@ -33,11 +37,15 @@ router.post("/login", async (request: Request, response: Response) => {
 
     // @ts-ignore
     request.session.user = user;
+
     response.redirect("/lobby");
   } catch (error) {
     console.error("Error logging in user:", error);
 
-    response.render("root", { error: "Invalid credentials.", email });
+    response.render("auth/login-form", {
+      error: "Invalid credentials.",
+      email,
+    });
   }
 });
 

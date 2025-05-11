@@ -109,10 +109,10 @@ const getState = async (gameId: number) => {
   const { name } = await getInfo(gameId);
 
   const players = (await getPlayers(gameId)).map(
-    ({ id, email, gravatar, seat, is_current: isCurrent }) => ({
+    ({ id, email, avatar_url, seat, is_current: isCurrent }) => ({
       id,
       email,
-      gravatar,
+      avatar_url,
       seat,
       isCurrent,
     }),
@@ -125,6 +125,7 @@ const getState = async (gameId: number) => {
 
     try {
       playerInfo[id] = {
+        gravatar: players[i].avatar_url ?? "",
         ...players[id],
         hand: await db.manyOrNone(GET_CARD_SQL, {
           gameId,
