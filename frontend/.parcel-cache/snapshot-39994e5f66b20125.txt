@@ -1,21 +1,22 @@
-5039
+5041
 101/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/public/assets/user-icon.png1741801432885366000 0
 94/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/public/register.html1747547123892623613 0
 91/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/public/login.html1747547701172560734 0
-91/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/public/bingo.html1747555176168506938 0
+91/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/public/bingo.html1747557317159742845 0
 95/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/public/dashboard.html1747552248847857553 0
 93/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/src/styles/main.css1747552311619717624 0
 84/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/src/styles1741763851603189000 1
 88/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/src/components1747543663057762000 1
-88/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/src/ts/game.ts1747551617954070998 0
+88/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/src/ts/game.ts1747556254587338855 0
 89/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/src/ts/bingo.ts1741778179241531000 0
 88/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/src/ts/chat.ts1741763851599187000 0
 88/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/src/ts/main.ts1747539827998185000 0
-97/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/public.0ba7c674.js1747554476457953559 0
-101/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/public.0ba7c674.js.map1747554476483921411 0
-89/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/bingo.html1747554476690665459 0
-100/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/dashboard.5b4d30fb.js1747554476458952323 0
-101/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/dashboard.5525e4b8.css1747554476690665459 0
+97/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/public.0ba7c674.js1747557318526200368 0
+101/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/public.0ba7c674.js.map1747557318570225297 0
+89/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/bingo.html1747557318549213399 0
+100/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/bingo.6e59fd57.js.map1747557318570225297 0
+100/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/dashboard.5b4d30fb.js1747557318526200368 0
+101/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/dashboard.5525e4b8.css1747557318549213399 0
 87/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/tsconfig.json1741770551244448000 0
 86/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/package.json1747554990121853357 0
 131/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/node-gyp-build-optional-packages/optional.js1747549465699966537 0
@@ -282,6 +283,7 @@
 103/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/rust/lib1747549465850280825 1
 127/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/graph/test/AdjacencyList.test.js1747549465964519684 0
 126/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/graph/test/ContentGraph.test.js1747549466022641761 0
+96/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/bingo.6e59fd57.js1747557318526200368 0
 102/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/fs/test1747549466015626915 1
 148/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/graph/test/integration/adjacency-list-shared-array.js1747549465679924632 0
 113/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/graph/src/Graph.js1747549466067737199 0
@@ -378,7 +380,7 @@
 113/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/cache/package.json1747549465964519684 0
 117/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/cache/lib/LMDBCache.js1747549465893370921 0
 131/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/transformer-postcss/src/constants.js1747549465724016823 0
-78/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist1747554476704648148 1
+78/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist1747557318572226431 1
 132/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/transformer-postcss/src/loadConfig.js1747549465808192825 0
 127/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/transformer-postcss/package.json1747549465908402350 0
 132/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/transformer-postcss/lib/loadConfig.js1747549465763098538 0
@@ -1597,7 +1599,7 @@
 137/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@popperjs/core/dist/esm/dom-utils/getLayoutRect.js1747537707431784000 0
 104/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/typescript/lib/ru1741776085467160000 1
 134/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts1741776085682157000 0
-89/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/index.html1747554476689666695 0
+89/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/index.html1747557318549213399 0
 122/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/typescript/lib/lib.es2022.full.d.ts1741776085725156000 0
 116/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/utility-types/dist/index.d.ts1747549465987567875 0
 123/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/typescript/lib/lib.esnext.array.d.ts1741776085750156000 0
@@ -1854,7 +1856,7 @@
 109/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/semver/functions/eq.js1747549465906398160 0
 135/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@popperjs/core/lib/dom-utils/isScrollParent.d.ts1747537707121778000 0
 109/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@types/node/http2.d.ts1747554983672308624 0
-104/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/dashboard.5b4d30fb.js.map1747554476483921411 0
+104/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/dashboard.5b4d30fb.js.map1747557318570225297 0
 118/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/profiler/lib/types.d.ts1747549465989572066 0
 108/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@types/cors/README.md1747554982891030874 0
 97/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@swc/types1747549465754079681 1
@@ -4402,7 +4404,7 @@
 142/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@swc/helpers/_/_ts_add_disposable_resource/package.json1747549466774232394 0
 99/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@swc/counter1747549465625811488 1
 108/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@swc/counter/index.js1747549465556666915 0
-89/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/login.html1747554476690665459 0
+89/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/login.html1747557318549213399 0
 100/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/graph1747549466151915350 1
 103/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/has-flag/license1747549465654872250 0
 105/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/nullthrows/LICENSE1747549465607773773 0
@@ -4565,7 +4567,7 @@
 99/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/bootstrap/js1747537707192780000 1
 122/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/lightningcss-linux-x64-musl/LICENSE1747554983106657564 0
 106/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/ordered-binary/dist1747549465588733963 1
-93/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/dashboard.html1747554476470937485 0
+93/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/dashboard.html1747557318529202067 0
 133/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/core/test/fixtures/application-targets1747549466619905784 1
 134/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@swc/helpers/esm/_class_apply_descriptor_set.js1747549466385409506 0
 128/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/node-resolver-core/lib/Wrapper.js1747549465819215872 0
@@ -4681,7 +4683,7 @@
 125/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@swc/helpers/src/_write_only_error.mjs1747549466985679892 0
 135/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@parcel/runtime-js/lib/helpers/node/js-loader.js1747549466067737199 0
 124/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@swc/helpers/src/_sliced_to_array.mjs1747549466945595058 0
-105/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/dashboard.5525e4b8.css.map1747554476703649384 0
+105/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/dashboard.5525e4b8.css.map1747557318571225864 0
 133/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@swc/helpers/src/_async_generator_delegate.mjs1747549466795276932 0
 123/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@socket.io/component-emitter/lib/esm1747554982994329859 1
 112/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@swc/helpers/cjs/_jsx.cjs1747549466244110467 0
@@ -5003,7 +5005,7 @@
 95/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/.bin/tsc1747545876134156361 0
 131/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/caniuse-lite/data/features/pointer-events.js1747549467021756705 0
 114/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/.bin/update-browserslist-db1747549467510802603 0
-92/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/register.html1747554476690665459 0
+92/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/dist/register.html1747557318549213399 0
 133/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/socket.io/client-dist/socket.io.msgpack.min.js1747554983189900539 0
 124/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/.bin/node-gyp-build-optional-packages1747549467510802603 0
 137/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/node_modules/@popperjs/core/lib/dom-utils/getLayoutRect.js.flow1747537706863773000 0

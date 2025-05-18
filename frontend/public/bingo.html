@@ -139,13 +139,52 @@
     </div>
   </div>
 
-  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-    <script>
+  <script>
     const socket = io("http://localhost:5000");
+    const chatBox = document.getElementById("chatBox");
+    const chatInput = document.getElementById("chatMessage");
+    const sendButton = document.getElementById("sendMessage");
+    const roomId = "bingo";
+    const username = localStorage.getItem("username") || "Anonymous";
 
-    // Bingo logic example
+    // Join room and load history
+    socket.emit("joinRoom", { roomId, username });
+
+    socket.on("chatHistory", (history) => {
+      chatBox.innerHTML = "";
+      history.forEach(({ username, message, timestamp }) => {
+        appendMessage(username, message, timestamp);
+      });
+    });
+
+    socket.on("chatMessage", ({ username, message, timestamp }) => {
+      appendMessage(username, message, timestamp);
+    });
+
+    sendButton.addEventListener("click", () => {
+      const message = chatInput.value.trim();
+      if (message) {
+        socket.emit("chatMessage", {
+          roomId,
+          username,
+          message,
+          timestamp: new Date().toISOString()
+        });
+        chatInput.value = "";
+      }
+    });
+
+    function appendMessage(user, msg, time) {
+      const p = document.createElement("p");
+      p.innerHTML = `<strong>${user}</strong> <small class="text-muted">[${new Date(time).toLocaleTimeString()}]</small>: ${msg}`;
+      chatBox.appendChild(p);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Bingo board logic
     const bingoBoard = document.getElementById("bingoBoard");
     const calledNumber = document.getElementById("calledNumber");
+
     for (let i = 1; i <= 25; i++) {
       const cell = document.createElement("div");
       cell.className = "bingo-cell";
@@ -156,75 +195,13 @@
       bingoBoard.appendChild(cell);
     }
 
-    // Call number (simulated)
     document.getElementById("callNumber").addEventListener("click", () => {
       const number = Math.floor(Math.random() * 75) + 1;
       calledNumber.textContent = "🎲 Called Number: " + number;
     });
 
-    // Leave game
     document.getElementById("leaveGame").addEventListener("click", () => {
       window.location.href = "dashboard.html";
-    });
-
-    // Chat logic
-    const chatBox = document.getElementById("chatBox");
-    const chatInput = document.getElementById("chatMessage");
-    const sendButton = document.getElementById("sendMessage");
-
-    sendButton.addEventListener("click", () => {
-      const message = chatInput.value.trim();
-      const username = localStorage.getItem("username") || "Anonymous";
-
-      if (message) {
-        socket.emit("chatMessage", {
-          username,
-          message,
-          timestamp: new Date().toISOString()
-        });
-        chatInput.value = "";
-      }
-    });
-
-    socket.on("chatHistory", (history) => {
-    history.forEach(({ username, message, timestamp }) => {
-        const time = new Date(timestamp).toLocaleTimeString();
-        const p = document.createElement("p");
-        p.innerHTML = `<strong>${username}</strong> <small class="text-muted">[${time}]</small>: ${message}`;
-        chatBox.appendChild(p);
-    });
-    chatBox.scrollTop = chatBox.scrollHeight;
-    });
-
-
-    const roomId = "bingo"; // Or use actual game session ID
-    const username = localStorage.getItem("username") || "Anonymous";
-
-    socket.emit("joinRoom", { roomId, username });
-
-    socket.on("chatHistory", (history) => {
-    history.forEach(({ username, message, timestamp }) => {
-        appendMessage(username, message, timestamp);
-    });
-    });
-
-    socket.on("chatMessage", ({ username, message, timestamp }) => {
-    appendMessage(username, message, timestamp);
-    });
-
-    function appendMessage(user, msg, time) {
-    const p = document.createElement("p");
-    p.innerHTML = `<strong>${user}</strong> <small class="text-muted">[${new Date(time).toLocaleTimeString()}]</small>: ${msg}`;
-    document.getElementById("chatBox").appendChild(p);
-    }
-
-
-    socket.on("chatMessage", ({ username, message, timestamp }) => {
-      const time = new Date(timestamp).toLocaleTimeString();
-      const p = document.createElement("p");
-      p.innerHTML = `<strong>${username}</strong> <small class="text-muted">[${time}]</small>: ${message}`;
-      chatBox.appendChild(p);
-      chatBox.scrollTop = chatBox.scrollHeight;
     });
   </script>
 </body>
