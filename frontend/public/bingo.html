@@ -144,12 +144,14 @@
     const chatBox = document.getElementById("chatBox");
     const chatInput = document.getElementById("chatMessage");
     const sendButton = document.getElementById("sendMessage");
-    const roomId = "bingo";
+
+    const roomId = 1; // game_id in DB must be INT
     const username = localStorage.getItem("username") || "Anonymous";
 
-    // Join room and load history
+    // Join Room
     socket.emit("joinRoom", { roomId, username });
 
+    // Load Chat History
     socket.on("chatHistory", (history) => {
       chatBox.innerHTML = "";
       history.forEach(({ username, message, timestamp }) => {
@@ -157,10 +159,12 @@
       });
     });
 
+    // New message
     socket.on("chatMessage", ({ username, message, timestamp }) => {
       appendMessage(username, message, timestamp);
     });
 
+    // Send new message
     sendButton.addEventListener("click", () => {
       const message = chatInput.value.trim();
       if (message) {
@@ -181,7 +185,7 @@
       chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    // Bingo board logic
+    // Bingo board
     const bingoBoard = document.getElementById("bingoBoard");
     const calledNumber = document.getElementById("calledNumber");
 
