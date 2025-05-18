@@ -1,40 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bingo Game</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <style>
-        .bingo-board {
-            display: grid;
-            grid-template-columns: repeat(5, 60px);
-            gap: 5px;
-            margin-top: 20px;
-        }
-        .bingo-cell {
-            width: 60px;
-            height: 60px;
-            background: lightblue;
-            text-align: center;
-            line-height: 60px;
-            font-size: 18px;
-            font-weight: bold;
-            border: 2px solid black;
-            cursor: pointer;
-        }
-        .marked {
-            background: green;
-            color: white;
-        }
-    </style>
-</head>
-<body class="text-center">
-    <h1>🎲 Bingo Game</h1>
-    <button id="callNumber" class="btn btn-primary mt-3">Call Number</button>
-    <p id="calledNumber" class="mt-2">🎲 Called Number: </p>
-    <div id="bingoBoard" class="bingo-board mx-auto"></div>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bingo Game</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-    <script type="module" src="../src/ts/bingo.ts"></script> <!-- Correct Path -->
+    .bingo-container {
+      text-align: center;
+    }
+
+    .bingo-board {
+      display: grid;
+      grid-template-columns: repeat(5, 60px);
+      gap: 5px;
+      margin: 20px auto;
+    }
+
+    .bingo-cell {
+      width: 60px;
+      height: 60px;
+      background: lightblue;
+      text-align: center;
+      line-height: 60px;
+      font-size: 18px;
+      font-weight: bold;
+      border: 2px solid black;
+      cursor: pointer;
+    }
+
+    .marked {
+      background: green;
+      color: white;
+    }
+
+    .control-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bingo-container">
+    <h1>🎲 Bingo Game</h1>
+    <div class="control-buttons">
+      <button id="callNumber" class="btn btn-primary">Call Number</button>
+      <button id="leaveGame" class="btn btn-danger">Leave</button>
+    </div>
+    <p id="calledNumber" class="mt-2">🎲 Called Number: </p>
+    <div id="bingoBoard" class="bingo-board"></div>
+  </div>
+
+  <script type="module">
+    import "../src/ts/bingo.ts";
+
+    document.getElementById("leaveGame")?.addEventListener("click", () => {
+      window.location.href = "dashboard.html"; // change to "welcome.html" if needed
+    });
+  </script>
 </body>
 </html>

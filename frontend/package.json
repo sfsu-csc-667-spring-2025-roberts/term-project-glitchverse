@@ -3,8 +3,10 @@
     "version": "1.0.0",
     "description": "Frontend for the Game Framework using TypeScript, Parcel, and WebSockets",
     "scripts": {
-        "dev": "parcel public/index.html --open",
-        "build": "parcel build public/index.html"
+    "dev": "parcel public/index.html public/login.html public/register.html public/dashboard.html public/bingo.html --open"
+,
+    "build": "parcel build public/*.html",
+    "clean": "parcel clean"
     },
     "dependencies": {
         "axios": "^1.8.3",
