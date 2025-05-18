@@ -61,15 +61,28 @@
   </div>
 
   <script>
-    document.getElementById("startBtn").addEventListener("click", () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        window.location.href = "dashboard.html"; // redirect to lobby/dashboard if logged in
+    document.addEventListener("DOMContentLoaded", () => {
+      const startBtn = document.getElementById("startBtn");
+  
+      if (startBtn) {
+        startBtn.addEventListener("click", () => {
+          console.log("Start button clicked");
+  
+          const token = localStorage.getItem("token");
+          console.log("Token found:", token);
+  
+          if (token) {
+            window.location.href = "dashboard.html";
+          } else {
+            window.location.href = "login.html";
+          }
+        });
       } else {
-        window.location.href = "login.html"; // else redirect to login
+        console.log("Start button NOT found");
       }
     });
   </script>
+  
 
 </body>
 </html>
