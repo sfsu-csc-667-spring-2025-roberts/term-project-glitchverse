@@ -5,7 +5,7 @@
     "scripts": {
         "build": "parcel build public/index.html",
         "start": "parcel serve public/index.html --port 3000 --public-url ./",
-        "dev": "parcel public/index.html --open"
+        "dev": "parcel public/*index.html --open"
     },
     "dependencies": {
         "axios": "^1.8.3",

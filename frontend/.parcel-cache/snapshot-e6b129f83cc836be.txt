@@ -1,7 +1,7 @@
 4631
 101/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/public/assets/user-icon.png1741801432885366000 0
 94/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/public/register.html1747547123892623613 0
-91/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/public/login.html1747547680464504789 0
+91/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/public/login.html1747547123891626668 0
 91/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/public/bingo.html1741803476745964000 0
 95/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/public/dashboard.html1747543320887392000 0
 93/home/student/Documents/CSC-667/Project/term-project-glitchverse/frontend/src/styles/main.css1747539828012185000 0
