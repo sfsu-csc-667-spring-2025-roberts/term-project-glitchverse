@@ -2,30 +2,67 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bingo Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bingo Game | GlitchVerse</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+
   <style>
     body {
       background-color: #0a0a0a;
       color: #fff;
       font-family: 'Poppins', sans-serif;
-      height: 100vh;
       margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 0;
     }
 
-    .bingo-container {
-      text-align: center;
+    .container-flex {
+      display: flex;
+      height: 100vh;
+    }
+
+    .bingo-section {
+      flex: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .chat-section {
+      flex: 1;
+      background-color: #1a1a1a;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      border-left: 2px solid #0ff;
+    }
+
+    .chat-box {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      border: 1px solid #333;
+      padding: 10px;
+      background-color: #111;
+      border-radius: 5px;
+    }
+
+    .chat-box p {
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    .chat-box strong {
+      color: #0ff;
     }
 
     .bingo-board {
       display: grid;
       grid-template-columns: repeat(5, 60px);
       gap: 5px;
-      margin: 20px auto;
+      margin-top: 20px;
     }
 
     .bingo-cell {
@@ -45,31 +82,149 @@
       color: white;
     }
 
-    .control-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 20px;
+    .start-button {
+      margin: 10px;
+      padding: 10px 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(90deg, #0ff, #ff00ff);
+      color: #000;
+      transition: all 0.3s ease;
+    }
+
+    .start-button:hover {
+      background: linear-gradient(90deg, #ff00ff, #0ff);
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    .chat-section input {
+      padding: 8px;
+      border: none;
+      width: 100%;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .chat-section button {
+      width: 100%;
+    }
+
+    h1 {
+      color: #0ff;
+      text-shadow: 2px 2px 10px #ff00ff;
     }
   </style>
 </head>
 <body>
-  <div class="bingo-container">
-    <h1>🎲 Bingo Game</h1>
-    <div class="control-buttons">
-      <button id="callNumber" class="btn btn-primary">Call Number</button>
-      <button id="leaveGame" class="btn btn-danger">Leave</button>
+  <div class="container-flex">
+    <!-- Bingo Section -->
+    <div class="bingo-section">
+      <h1>🎲 Bingo Game</h1>
+      <div class="d-flex gap-2">
+        <button id="callNumber" class="start-button">Call Number</button>
+        <button id="leaveGame" class="start-button">Leave</button>
+      </div>
+      <p id="calledNumber">🎲 Called Number: </p>
+      <div id="bingoBoard" class="bingo-board"></div>
     </div>
-    <p id="calledNumber" class="mt-2">🎲 Called Number: </p>
-    <div id="bingoBoard" class="bingo-board"></div>
+
+    <!-- Chat Section -->
+    <div class="chat-section">
+      <div class="chat-box" id="chatBox"></div>
+      <input type="text" id="chatMessage" placeholder="Type a message..." />
+      <button class="start-button" id="sendMessage">Send</button>
+    </div>
   </div>
 
-  <script type="module">
-    import "../src/ts/bingo.ts";
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script>
+    const socket = io("http://localhost:5000");
 
-    document.getElementById("leaveGame")?.addEventListener("click", () => {
-      window.location.href = "dashboard.html"; // change to "welcome.html" if needed
+    // Bingo logic example
+    const bingoBoard = document.getElementById("bingoBoard");
+    const calledNumber = document.getElementById("calledNumber");
+    for (let i = 1; i <= 25; i++) {
+      const cell = document.createElement("div");
+      cell.className = "bingo-cell";
+      cell.textContent = i;
+      cell.addEventListener("click", () => {
+        cell.classList.toggle("marked");
+      });
+      bingoBoard.appendChild(cell);
+    }
+
+    // Call number (simulated)
+    document.getElementById("callNumber").addEventListener("click", () => {
+      const number = Math.floor(Math.random() * 75) + 1;
+      calledNumber.textContent = "🎲 Called Number: " + number;
+    });
+
+    // Leave game
+    document.getElementById("leaveGame").addEventListener("click", () => {
+      window.location.href = "dashboard.html";
+    });
+
+    // Chat logic
+    const chatBox = document.getElementById("chatBox");
+    const chatInput = document.getElementById("chatMessage");
+    const sendButton = document.getElementById("sendMessage");
+
+    sendButton.addEventListener("click", () => {
+      const message = chatInput.value.trim();
+      const username = localStorage.getItem("username") || "Anonymous";
+
+      if (message) {
+        socket.emit("chatMessage", {
+          username,
+          message,
+          timestamp: new Date().toISOString()
+        });
+        chatInput.value = "";
+      }
+    });
+
+    socket.on("chatHistory", (history) => {
+    history.forEach(({ username, message, timestamp }) => {
+        const time = new Date(timestamp).toLocaleTimeString();
+        const p = document.createElement("p");
+        p.innerHTML = `<strong>${username}</strong> <small class="text-muted">[${time}]</small>: ${message}`;
+        chatBox.appendChild(p);
+    });
+    chatBox.scrollTop = chatBox.scrollHeight;
+    });
+
+
+    const roomId = "bingo"; // Or use actual game session ID
+    const username = localStorage.getItem("username") || "Anonymous";
+
+    socket.emit("joinRoom", { roomId, username });
+
+    socket.on("chatHistory", (history) => {
+    history.forEach(({ username, message, timestamp }) => {
+        appendMessage(username, message, timestamp);
+    });
+    });
+
+    socket.on("chatMessage", ({ username, message, timestamp }) => {
+    appendMessage(username, message, timestamp);
+    });
+
+    function appendMessage(user, msg, time) {
+    const p = document.createElement("p");
+    p.innerHTML = `<strong>${user}</strong> <small class="text-muted">[${new Date(time).toLocaleTimeString()}]</small>: ${msg}`;
+    document.getElementById("chatBox").appendChild(p);
+    }
+
+
+    socket.on("chatMessage", ({ username, message, timestamp }) => {
+      const time = new Date(timestamp).toLocaleTimeString();
+      const p = document.createElement("p");
+      p.innerHTML = `<strong>${username}</strong> <small class="text-muted">[${time}]</small>: ${message}`;
+      chatBox.appendChild(p);
+      chatBox.scrollTop = chatBox.scrollHeight;
     });
   </script>
 </body>
