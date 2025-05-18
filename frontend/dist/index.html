@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to GlitchVerse</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>body {
+  color: #0ff;
+  text-align: center;
+  background-color: #0a0a0a;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Poppins, sans-serif;
+  display: flex;
+}
+
+.welcome-container {
+  max-width: 600px;
+}
+
+h1 {
+  text-shadow: 2px 2px 10px #f0f;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+p {
+  color: #ccc;
+  margin-top: 20px;
+  font-size: 1.2rem;
+}
+
+.start-button {
+  color: #000;
+  background: linear-gradient(90deg, #0ff, #f0f);
+  border: none;
+  border-radius: 30px;
+  margin-top: 40px;
+  padding: 12px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all .3s;
+}
+
+.start-button:hover {
+  color: #fff;
+  background: linear-gradient(90deg, #f0f, #0ff);
+  transform: scale(1.1);
+}
+</style>
+</head>
+<body>
+
+  <div class="welcome-container">
+    <h1>Welcome to GlitchVerse</h1>
+    <p>Your gateway to multiplayer fun, strategy, and real-time gaming.</p>
+    <button id="startBtn" class="start-button">Start</button>
+  </div>
+
+  <script>document.getElementById("startBtn").addEventListener("click", ()=>{
+    const token = localStorage.getItem("token");
+    if (token) window.location.href = "dashboard.html"; // redirect to lobby/dashboard if logged in
+    else window.location.href = "login.html"; // else redirect to login
+});
+
+</script>
+
+
+
+<script src="/public.0ba7c674.js"></script></body></html>
