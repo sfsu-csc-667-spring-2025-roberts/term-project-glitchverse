@@ -189,13 +189,31 @@
     const bingoBoard = document.getElementById("bingoBoard");
     const calledNumber = document.getElementById("calledNumber");
 
-    for (let i = 1; i <= 25; i++) {
+    function getUniqueBingoNumbers(count) {
+      const numbers = new Set();
+      while (numbers.size < count) {
+        numbers.add(Math.floor(Math.random() * 75) + 1);
+      }
+      return Array.from(numbers);
+    }
+
+    const numbers = getUniqueBingoNumbers(24);
+
+    for (let i = 0; i < 25; i++) {
       const cell = document.createElement("div");
       cell.className = "bingo-cell";
-      cell.textContent = i;
-      cell.addEventListener("click", () => {
-        cell.classList.toggle("marked");
-      });
+
+      if (i === 12) {
+        cell.textContent = "FREE";
+        cell.classList.add("marked");
+      } else {
+        const num = numbers.shift();
+        cell.textContent = num;
+        cell.addEventListener("click", () => {
+          cell.classList.toggle("marked");
+        });
+      }
+
       bingoBoard.appendChild(cell);
     }
 

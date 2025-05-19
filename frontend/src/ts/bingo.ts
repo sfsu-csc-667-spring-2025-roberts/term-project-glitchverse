@@ -11,15 +11,24 @@ document.addEventListener("DOMContentLoaded", () => {
     // Generate unique Bingo numbers (1-75)
     function generateBingoNumbers(): number[] {
         let nums = [];
-        for (let i = 1; i <= 25; i++) {
+        for (let i = 1; i <= 75; i++) {
             nums.push(i);
         }
-        return nums.sort(() => Math.random() - 0.5); // Shuffle numbers
+        // Shuffle
+        nums.sort(() => Math.random() - 0.5);
+
+        // Take first 25 for the board
+        return nums.slice(0, 25);
     }
+
 
     // Render Bingo board
     function renderBingoBoard() {
         numbers = generateBingoNumbers();
+
+        console.log("Generated board numbers:", numbers);
+
+        bingoBoard!.innerHTML = ""; // Clear previous board
 
         numbers.forEach((num) => {
             const cell = document.createElement("div");
@@ -27,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
             cell.textContent = num.toString();
             cell.dataset.number = num.toString();
 
-            // Mark cell on click
             cell.addEventListener("click", () => {
                 cell.classList.toggle("marked");
             });
@@ -35,6 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
             bingoBoard?.appendChild(cell);
         });
     }
+
+
 
     // Call a random number
     function callRandomNumber() {
