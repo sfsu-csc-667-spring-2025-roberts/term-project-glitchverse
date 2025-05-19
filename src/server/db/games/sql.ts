@@ -31,7 +31,7 @@ RETURNING (
 `;
 
 export const IS_HOST_SQL = `
-SELECT user_id FROM game_users ORDER BY seat LIMIT 1`;
+SELECT user_id FROM game_users WHERE game_id = $1 ORDER BY seat LIMIT 1`;
 
 export const GET_GAME_INFO_SQL = `
 SELECT name, min_players, max_players, password, (
@@ -77,4 +77,33 @@ SELECT cards.* FROM cards, game_cards
 WHERE user_id=$(userId) AND pile=$(pile) AND game_id=$(gameId)
 ORDER BY game_cards.card_order, game_cards.card_id DESC
 LIMIT $(limit)
+`;
+
+export const GET_USER_GAMES_SQL = `
+SELECT g.*, 
+  COALESCE((SELECT COUNT(*) FROM game_users gu2 WHERE gu2.game_id = g.id), 0)::integer as player_count 
+FROM games g 
+INNER JOIN game_users gu ON g.id = gu.game_id 
+WHERE gu.user_id = $1;
+`;
+
+export const GET_AVAILABLE_GAMES_SQL = `
+SELECT g.*, 
+  COALESCE((SELECT COUNT(*) FROM game_users gu2 WHERE gu2.game_id = g.id), 0)::integer as player_count 
+FROM games g 
+WHERE g.id NOT IN (
+  SELECT game_id FROM game_users WHERE user_id = $1
+) 
+AND COALESCE((SELECT COUNT(*) FROM game_users WHERE game_id = g.id), 0) < g.max_players;
+`;
+
+export const REMOVE_PLAYER_SQL = `
+DELETE FROM game_users 
+WHERE game_id = $1 AND user_id = $2
+`;
+
+export const DELETE_GAME_SQL = `
+DELETE FROM games 
+WHERE id = $1 
+RETURNING id;
 `;

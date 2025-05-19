@@ -8,9 +8,13 @@ import {
   GET_CARD_SQL,
   GET_GAME_INFO_SQL,
   GET_PLAYERS_SQL,
+  GET_USER_GAMES_SQL,
+  GET_AVAILABLE_GAMES_SQL,
   IS_HOST_SQL,
   SET_IS_CURRENT_SQL,
   SETUP_DECK_SQL,
+  REMOVE_PLAYER_SQL,
+  DELETE_GAME_SQL,
 } from "./sql";
 
 const create = async (
@@ -77,6 +81,29 @@ const getPlayers = async (gameId: number): Promise<(User & DbGameUser)[]> => {
 
 const setCurrentPlayer = async (gameId: number, userId: number) => {
   await db.none(SET_IS_CURRENT_SQL, { gameId, userId });
+};
+
+const removePlayer = async (gameId: number, userId: number) => {
+  try {
+    const { remainingPlayers } = await db.one(REMOVE_PLAYER_SQL, [
+      gameId,
+      userId,
+    ]);
+    return remainingPlayers;
+  } catch (error) {
+    console.error("Error removing player from game:", error);
+    return 0;
+  }
+};
+
+const deleteGame = async (gameId: number): Promise<boolean> => {
+  try {
+    await db.one(DELETE_GAME_SQL, [gameId]);
+    return true;
+  } catch (error) {
+    console.error("Error deleting game:", error);
+    return false;
+  }
 };
 
 export const STOCK_PILE = 0;
@@ -166,6 +193,43 @@ const getState = async (gameId: number) => {
   };
 };
 
+const getGamesByUserId = async (userId: number) => {
+  try {
+    const games = await db.manyOrNone(GET_USER_GAMES_SQL, [userId]);
+    console.log("Raw database response:", games);
+
+    return games.map((game) => ({
+      ...game,
+      player_count: isNaN(Number(game.player_count))
+        ? 0
+        : Number(game.player_count),
+      status:
+        (Number(game.player_count) || 0) >= game.max_players
+          ? "playing"
+          : "waiting",
+    }));
+  } catch (error) {
+    console.error("Error getting user games:", error);
+    return [];
+  }
+};
+
+const getGames = async (userId: number) => {
+  try {
+    const games = await db.manyOrNone(GET_AVAILABLE_GAMES_SQL, [userId]);
+    return games.map((game) => ({
+      ...game,
+      player_count: isNaN(Number(game.player_count))
+        ? 0
+        : Number(game.player_count),
+      status: "waiting",
+    }));
+  } catch (error) {
+    console.error("Error getting available games:", error);
+    return [];
+  }
+};
+
 export default {
   create,
   dealCards,
@@ -173,9 +237,13 @@ export default {
   getInfo,
   getPlayers,
   getState,
+  getGamesByUserId,
+  getGames,
   join,
   setCurrentPlayer,
   start,
+  removePlayer,
+  delete: deleteGame,
   cardLocations: {
     STOCK_PILE: STOCK_PILE,
     PLAYER_HAND: PLAYER_HAND,
