@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GlitchVerse - gaming platform</title>
+    <%- include('shared/head') %>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/">GlitchVerse</a>
+        </div>
+        <div class="nav-menu">
+        </div>
+        <%- include('shared/nav') %>
+    </nav>
+
+    <main class="game-grid">
+        <% games.forEach(game=> { %>
+            <div class="game-card">
+                <img src="/images/games/<%= game.id %>.jpg" alt="<%= game.name %>">
+                <h3>
+                    <%= game.name %>
+                </h3>
+                <p>
+                    <%= game.description %>
+                </p>
+                <a href="<%= user ? '/lobby' : '/auth/login' %>" class="play-btn">Start Game</a>
+            </div>
+            <% }); %>
+    </main>
+</body>
+
+</html>

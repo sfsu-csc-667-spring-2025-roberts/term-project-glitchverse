@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GlitchVerse - Game</title>
+  <%- include('shared/head') %>
+  <script src="/js/games.js" defer></script>
+</head>
+<body id="games-body">
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="/">GlitchVerse</a>
+    </div>
+    <div class="nav-menu">
+    </div>
+    <%- include('shared/nav') %>
+  </nav>
+
+  <div id="container">
+    <div id="content">
+      <section id="game-table">
+        <div class="game-controls">
+          <% if(isHost) { %> 
+            <button id="start-game-button">Start Game</button>
+          <% } %>
+          <button id="leave-game-button">Leave Game</button>
+        </div>
+      </section>
+
+      <div class="chat-container">
+        <div class="chat-content">
+          <%- include('shared/chat') %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('shared/templates') %>
+</body>
+</html>
