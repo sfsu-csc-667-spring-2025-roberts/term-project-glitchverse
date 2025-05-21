@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GlitchVerse - Profile Settings</title>
+    <%- include('../shared/head') %>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/">GlitchVerse</a>
+        </div>
+        <div class="nav-menu">
+        </div>
+        <%- include('../shared/nav') %>
+    </nav>
+
+    <% if (locals.error && error) { %>
+        <div class="error-message">
+            <%= error %>
+        </div>
+    <% } %>
+
+    <% if (locals.success && success) { %>
+        <div class="success-message">
+            <%= success %>
+        </div>
+    <% } %>
+
+    <div class="profile-container">
+        <div class="profile-sidebar">
+            <div class="avatar-section">
+                <img src="<%= user.avatar_url || `https://gravatar.com/avatar/${user.gravatar}?d=identicon` %>"
+                    alt="Current Avatar" class="current-avatar" />
+                <form action="/user/avatar" method="post" enctype="multipart/form-data">
+                    <div class="file-upload-container">
+                        <input type="file" name="avatar" accept="image/*" />
+                        <div class="file-upload-button">Select avatar image</div>
+                    </div>
+                    <button type="submit" class="update-btn">Update Avatar</button>
+                </form>
+            </div>
+
+            <div class="stats-section">
+                <div class="stats-item">
+                    <span class="stats-label">Number of games</span>
+                    <span class="stats-value">
+                        <%= user.games_played %>
+                    </span>
+                </div>
+                <div class="stats-item">
+                    <span class="stats-label">Number of wins</span>
+                    <span class="stats-value">
+                        <%= user.games_won %>
+                    </span>
+                </div>
+                <div class="stats-item">
+                    <span class="stats-label">Winning rate</span>
+                    <span class="stats-value">
+                        <%= user.games_played ? Math.round((user.games_won / user.games_played) * 100) : 0 %>%
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-header">
+                <h1>Personal Information Settings</h1>
+                <p>Manage your account information</p>
+            </div>
+
+            <form action="/user/profile" method="post" class="profile-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" value="<%= user.username %>" />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="<%= user.email %>" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label for="current_password">Current Password</label>
+                    <input type="password" id="current_password" name="current_password" />
+                </div>
+
+                <div class="form-group">
+                    <label for="new_password">New Password</label>
+                    <input type="password" id="new_password" name="new_password" />
+                </div>
+
+                <button type="submit" class="save-btn">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

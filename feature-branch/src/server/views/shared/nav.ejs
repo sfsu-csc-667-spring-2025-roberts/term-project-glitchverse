@@ -1,0 +1,13 @@
+<div class="user-menu">
+    <% if (user) { %>
+        <a href="/lobby">lobby</a>
+        <a href="/auth/logout">logout</a>
+        <a href="/user/profile" class="avatar-link">
+            <img src="<%= user.avatar_url || `https://gravatar.com/avatar/${user.gravatar}?d=identicon` %>"
+                alt="User Avatar" class="gravatar" />
+        </a>
+    <% } else { %>
+        <a href="/auth/login">login</a>
+        <a href="/auth/register" class="active">register</a>
+    <% } %>
+</div>
