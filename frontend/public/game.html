@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bingo Game</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <h1>Bingo Game</h1>
+    <div id="gameInfo">
+        <button id="requestCard">Get Bingo Card</button>
+        <button id="drawNumber">Draw Number</button>
+        <p>Last Drawn Number: <span id="lastNumber">None</span></p>
+    </div>
+    
+    <div id="bingoBoard"></div>
+    <button id="checkWin">Check Win</button>
+
+    <div id="chat">
+        <input type="text" id="chatMessage" placeholder="Type a message..." />
+        <button id="sendMessage">Send</button>
+        <div id="chatBox"></div>
+    </div>
+
+    <script type="module" src="/src/ts/game.ts"></script>
+</body>
+</html>
