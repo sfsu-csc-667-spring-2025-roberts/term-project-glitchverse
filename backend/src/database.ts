@@ -1,3 +1,4 @@
+/*
 import * as mysql from "mysql2/promise";
 import * as dotenv from "dotenv";
 
@@ -23,3 +24,4 @@ const pool = mysql.createPool({
 })();
 
 export default pool;
+*/

@@ -23,13 +23,13 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, email, password } = req.body;
-        const [existingUsers] = yield db_1.default.query("SELECT * FROM users WHERE email = ?", [email]);
-        if (existingUsers.length > 0) {
+        const result = yield db_1.default.query("SELECT * FROM users WHERE email = $1", [email]);
+        if (result.rows.length > 0) {
             res.status(400).json({ message: "User already exists" });
             return;
         }
         const hashedPassword = yield bcryptjs_1.default.hash(password, 10);
-        yield db_1.default.query("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", [username, email, hashedPassword]);
+        yield db_1.default.query("INSERT INTO users (username, email, password) VALUES ($1, $2, $3)", [username, email, hashedPassword]);
         res.status(201).json({ message: "User registered successfully" });
     }
     catch (error) {
@@ -42,12 +42,12 @@ exports.registerUser = registerUser;
 const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
-        const [users] = yield db_1.default.query("SELECT * FROM users WHERE email = ?", [email]);
-        if (users.length === 0) {
+        const result = yield db_1.default.query("SELECT * FROM users WHERE email = $1", [email]);
+        if (result.rows.length === 0) {
             res.status(400).json({ message: "Invalid credentials" });
             return;
         }
-        const user = users[0];
+        const user = result.rows[0];
         const isMatch = yield bcryptjs_1.default.compare(password, user.password);
         if (!isMatch) {
             res.status(400).json({ message: "Invalid credentials" });
@@ -66,12 +66,12 @@ exports.loginUser = loginUser;
 const getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = req.userId; // set by auth middleware
-        const [users] = yield db_1.default.query("SELECT id, username, email FROM users WHERE id = ?", [userId]);
-        if (users.length === 0) {
+        const result = yield db_1.default.query("SELECT id, username, email FROM users WHERE id = $1", [userId]);
+        if (result.rows.length === 0) {
             res.status(404).json({ message: "User not found" });
             return;
         }
-        res.json(users[0]);
+        res.json(result.rows[0]);
     }
     catch (error) {
         console.error(error);

@@ -43,6 +43,7 @@ app.use((req, res) => {
   res.status(404).json({ message: "Not Found" });
 });
 
+/*
 // Socket.IO Chat Handling
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
@@ -101,7 +102,66 @@ io.on("connection", (socket) => {
     }
   });
 });
+*/
 
+// Socket.IO Chat Handling
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
+
+  let currentRoom = "";
+
+  // Join Room
+  socket.on("joinRoom", async ({ roomId, username }) => {
+    currentRoom = roomId;
+    socket.join(roomId);
+
+    // Send system message to room
+    socket.to(roomId).emit("chatMessage", {
+      username: "System",
+      message: `${username} has joined the game.`,
+      timestamp: new Date().toISOString()
+    });
+
+    // Fetch chat history from DB
+    try {
+      const result = await db.query(
+        "SELECT username, message, timestamp FROM chat_messages WHERE game_id = $1 ORDER BY timestamp ASC",
+        [roomId]
+      );
+      socket.emit("chatHistory", result.rows);
+    } catch (err) {
+      console.error("DB error fetching history:", err);
+    }
+  });
+
+  // Chat message
+  socket.on("chatMessage", async ({ roomId, username, message }) => {
+    const now = new Date();
+    const timestamp = now.toISOString();
+  
+    try {
+      await db.query(
+        "INSERT INTO chat_messages (game_id, username, message, timestamp) VALUES ($1, $2, $3, $4)",
+        [roomId, username, message, timestamp]
+      );
+  
+      io.to(roomId).emit("chatMessage", { username, message, timestamp });
+    } catch (err) {
+      console.error("DB error inserting message:", err);
+    }
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.id);
+    if (currentRoom) {
+      socket.to(currentRoom).emit("chatMessage", {
+        username: "System",
+        message: "A player has left the game.",
+        timestamp: new Date().toISOString()
+      });
+    }
+  });
+});
 // Start Server
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {

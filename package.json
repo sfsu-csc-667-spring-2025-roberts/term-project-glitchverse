@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "pg": "^8.16.0",
+    "pg-hstore": "^2.3.4"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.15.2"
+  }
+}

@@ -13,14 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllGames = void 0;
-const db_1 = __importDefault(require("../config/db")); // Ensure database connection
+const db_1 = __importDefault(require("../config/db"));
 const getAllGames = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const [rows] = yield db_1.default.execute("SELECT id, name, description, image FROM games");
-        if (!Array.isArray(rows)) {
+        const result = yield db_1.default.query("SELECT id, name, description, image FROM games");
+        if (!result.rows) {
             throw new Error("Unexpected database response");
         }
-        const games = rows.map((game) => (Object.assign(Object.assign({}, game), { image: `http://localhost:3000${game.image}` })));
+        const games = result.rows.map((game) => (Object.assign(Object.assign({}, game), { image: `http://localhost:3000${game.image}` })));
         res.json(games);
     }
     catch (error) {
