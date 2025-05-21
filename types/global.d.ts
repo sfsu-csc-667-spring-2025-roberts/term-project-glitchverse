@@ -6,6 +6,7 @@ export type User = {
   avatar_url: string | null;
   games_played: number;
   games_won: number;
+  gravatar: string;
 };
 
 export type DbGameUser = {

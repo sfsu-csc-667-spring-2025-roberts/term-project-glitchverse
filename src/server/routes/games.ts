@@ -81,24 +81,31 @@ router.post("/:gameId/start", async (request: Request, response: Response) => {
   const hostId = await Game.getHost(gameId);
 
   if (hostId !== userId) {
-    response.status(200).send();
+    response.status(403).json({ error: "Only host can start the game" });
     return;
   }
 
   const gameInfo = await Game.getInfo(gameId);
-  if (gameInfo.min_players < gameInfo.player_count) {
-    // TODO: Broadcast game update stating "not enough players"
-
-    response.status(200).send();
+  if (gameInfo.min_players > gameInfo.player_count) {
+    response.status(400).json({ error: "Not enough players" });
     return;
   }
 
   await Game.start(gameId);
 
-  const gameState = await Game.getState(gameId);
-  console.log({ gameState: JSON.stringify(gameState, null, 2) });
+  request.app.get("io").emit(`game:start:${gameId}`);
 
-  response.status(200).send();
+  response.status(200).json({ success: true });
+});
+
+router.get("/:gameId/play", async (request: Request, response: Response) => {
+  const { gameId: paramsGameId } = request.params;
+  const gameId = parseInt(paramsGameId);
+
+  const { id: userId } = request.session.user!;
+  const hostId = await Game.getHost(gameId);
+
+  response.render("in-games", { gameId, isHost: hostId === userId });
 });
 
 router.post("/:gameId/leave", async (request: Request, response: Response) => {
@@ -139,6 +146,32 @@ router.post("/:gameId/delete", async (request: Request, response: Response) => {
   } catch (error) {
     console.error("Error deleting game:", error);
     response.status(500).json({ error: "Failed to delete game" });
+  }
+});
+
+router.post("/:gameId/number", async (request: Request, response: Response) => {
+  try {
+    const { gameId } = request.params;
+    const { id: userId } = request.session.user!;
+
+    const players = await Game.getPlayers(parseInt(gameId));
+
+    const number = Math.floor(Math.random() * 75) + 1;
+
+    const currentPlayerIndex = players.findIndex((p) => p.is_current);
+
+    const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
+
+    await Game.setCurrentPlayer(parseInt(gameId), players[nextPlayerIndex].id);
+
+    const io = request.app.get("io");
+    io.emit(`game:number:${gameId}`, number);
+    io.emit(`game:turn:${gameId}`, players[nextPlayerIndex].id);
+
+    response.json({ number });
+  } catch (error) {
+    console.error("Error generating number:", error);
+    response.status(500).json({ error: "Failed to generate number" });
   }
 });
 

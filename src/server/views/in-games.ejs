@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GlitchVerse - Bingo</title>
+  <%- include('shared/head') %>
+  <script src="/js/games.js" defer></script>
+</head>
+<body id="games-body">
+  <input type="hidden" id="user-id" value="<%= user.id %>" />
+  <input type="hidden" id="is-host" value="<%= isHost %>" />
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="/">GlitchVerse</a>
+    </div>
+    <div class="nav-menu">
+    </div>
+    <%- include('shared/nav') %>
+  </nav>
+
+  <div id="container">
+    <div id="content">
+      <section id="game-table">
+        <div class="game-controls">
+          <button id="leave-game-button">Leave Game</button>
+        </div>
+        
+        <div class="game-area">
+          <div class="player-info">
+            <div class="bingo-card">
+              <div class="bingo-header">
+                <span>B</span>
+                <span>I</span>
+                <span>N</span>
+                <span>G</span>
+                <span>O</span>
+              </div>
+              <div class="bingo-grid">
+        
+              </div>
+            </div>
+            <div id="called-number"></div>
+            <div class="number-controls">
+              <button id="get-number-button">Get Number</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="chat-container">
+        <div class="chat-content">
+          <%- include('shared/chat') %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('shared/templates') %>
+</body>
+</html>

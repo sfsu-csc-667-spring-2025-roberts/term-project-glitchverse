@@ -14,8 +14,10 @@ socket.on(
     const container = cloneTemplate<HTMLDivElement>("#chat-message-template");
 
     const img = container.querySelector<HTMLImageElement>("img")!;
-    img.src = `https://gravatar.com/avatar/${sender.gravatar}?d=identicon`;
-    img.alt = `Gravatar for ${sender.email}`;
+    img.src =
+      sender.avatar_url ||
+      `https://gravatar.com/avatar/${sender.gravatar}?d=identicon`;
+    img.alt = `Avatar for ${sender.email}`;
 
     container.querySelector<HTMLSpanElement>(
       "div span:first-of-type",

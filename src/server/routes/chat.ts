@@ -27,6 +27,7 @@ router.post("/:roomId", (request: Request, response: Response) => {
       id,
       email,
       gravatar,
+      avatar_url: request.session.user?.avatar_url,
     },
     timestamp: new Date(),
   });
