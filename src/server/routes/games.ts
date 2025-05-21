@@ -149,20 +149,37 @@ router.post("/:gameId/delete", async (request: Request, response: Response) => {
   }
 });
 
+const drawnNumbersPerGame: Record<number, Set<number>> = {};
+
 router.post("/:gameId/number", async (request: Request, response: Response) => {
   try {
-    const { gameId } = request.params;
+    const { gameId: paramGameId } = request.params;
+    const gameId = parseInt(paramGameId);
     const { id: userId } = request.session.user!;
 
-    const players = await Game.getPlayers(parseInt(gameId));
+    const players = await Game.getPlayers(gameId);
+    if (!drawnNumbersPerGame[gameId]) {
+      drawnNumbersPerGame[gameId] = new Set();
+    }
 
-    const number = Math.floor(Math.random() * 75) + 1;
+    const drawnSet = drawnNumbersPerGame[gameId];
+    const remainingNumbers = [...Array(75).keys()]
+      .map((n) => n + 1)
+      .filter((n) => !drawnSet.has(n));
+
+    if (remainingNumbers.length === 0) {
+      response.status(400).json({ error: "All numbers have been drawn" });
+      return;
+    }
+
+    const number =
+      remainingNumbers[Math.floor(Math.random() * remainingNumbers.length)];
+    drawnSet.add(number);
 
     const currentPlayerIndex = players.findIndex((p) => p.is_current);
-
     const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
 
-    await Game.setCurrentPlayer(parseInt(gameId), players[nextPlayerIndex].id);
+    await Game.setCurrentPlayer(gameId, players[nextPlayerIndex].id);
 
     const io = request.app.get("io");
     io.emit(`game:number:${gameId}`, number);

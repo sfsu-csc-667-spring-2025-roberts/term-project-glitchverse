@@ -4,6 +4,7 @@ import { socket } from "./sockets";
 let isMyTurn = false;
 let gameEnded = false;
 
+const drawnNumbers = new Set<number>();
 const startGameButton = document.querySelector("#start-game-button");
 const leaveGameButton = document.querySelector("#leave-game-button");
 const getNumberButton = document.querySelector(
@@ -74,56 +75,64 @@ function generateBingoCard() {
   if (!grid) return;
 
   grid.innerHTML = "";
-  const columns = {
-    B: generateRandomNumbers(1, 15, 5),
-    I: generateRandomNumbers(16, 30, 5),
-    N: generateRandomNumbers(31, 45, 5),
-    G: generateRandomNumbers(46, 60, 5),
-    O: generateRandomNumbers(61, 75, 5),
+
+  const generateRandomNumber = (
+    count: number,
+    min: number,
+    max: number,
+  ): number[] => {
+    const set = new Set<number>();
+    while (set.size < count) {
+      set.add(Math.floor(Math.random() * (max - min + 1)) + min);
+    }
+    return Array.from(set);
   };
 
-  const cardNumbers: number[] = [];
-  Object.entries(columns).forEach(([letter, numbers]) => {
-    numbers.forEach((number) => {
+  const B = generateRandomNumber(5, 1, 15);
+  const I = generateRandomNumber(5, 16, 30);
+  const N: (number | "FREE")[] = generateRandomNumber(4, 31, 45);
+  const G = generateRandomNumber(5, 46, 60);
+  const O = generateRandomNumber(5, 61, 75);
+
+  N.splice(2, 0, "FREE");
+
+  const columns: (number | "FREE")[][] = [B, I, N, G, O];
+
+  const cardNumbers: (number | "FREE")[] = [];
+
+  for (let row = 0; row < 5; row++) {
+    for (let col = 0; col < 5; col++) {
+      const value = columns[col][row];
       const cell = document.createElement("div");
       cell.className = "bingo-cell";
-      cell.textContent = number.toString();
-      cell.dataset.number = number.toString();
-      cell.dataset.column = letter;
+      cell.textContent = value === "FREE" ? "FREE" : value.toString();
+      if (value === "FREE") {
+        cell.classList.add("marked");
+        cell.dataset.free = "true";
+      } else {
+        cell.dataset.number = value.toString();
+        cardNumbers.push(value);
+      }
+
+      cell.addEventListener("click", () => {
+        if (cell.classList.contains("marked") || value === "FREE") return;
+
+        if (!drawnNumbers.has(value as number)) {
+          return alert("You can only mark a number once it's been drawn.");
+        }
+
+        cell.classList.add("marked");
+        checkLine();
+      });
+
       grid.appendChild(cell);
-      cardNumbers.push(number);
-    });
-  });
+    }
+  }
 
   socket.emit(`game:card:${getGameId()}`, cardNumbers);
 }
 
-function generateRandomNumbers(
-  min: number,
-  max: number,
-  count: number,
-): number[] {
-  const numbers = new Set<number>();
-  while (numbers.size < count) {
-    numbers.add(Math.floor(Math.random() * (max - min + 1)) + min);
-  }
-  return Array.from(numbers);
-}
-
 const announcedLines = new Set<string>();
-
-function markNumber(number: number) {
-  const cells = document.querySelectorAll(".bingo-cell");
-  cells.forEach((cell) => {
-    if (
-      cell instanceof HTMLElement &&
-      cell.dataset.number === number.toString()
-    ) {
-      cell.classList.add("marked");
-      checkLine();
-    }
-  });
-}
 
 function checkLine() {
   const cells = Array.from(document.querySelectorAll(".bingo-cell"));
@@ -202,7 +211,14 @@ socket.on(`game:winner:${getGameId()}`, () => {
   showNewGameButtonIfHost();
 });
 
-socket.on(`game:number:${getGameId()}`, markNumber);
+socket.on(`game:number:${getGameId()}`, (n: number) => {
+  drawnNumbers.add(n);
+
+  const calledNumberDiv = document.querySelector("#called-number");
+  if (calledNumberDiv) {
+    calledNumberDiv.textContent = `Current Number: ${n}`;
+  }
+});
 socket.on(`game:start:${getGameId()}`, () => {
   window.location.href = `/games/${getGameId()}/play`;
 });
