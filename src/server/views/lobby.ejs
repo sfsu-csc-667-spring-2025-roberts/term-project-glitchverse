@@ -1,75 +1,10 @@
-<!--
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Skip-bo | Lobby</title>
-    <%- include('shared/head') %>
-    <script src="/js/lobby.js" defer></script>
-  </head>
-  <body id="lobby">
-    <div id="container">
-      <%- include('shared/menu') %>
-
-      <div id="content">
-        <section id="games-listing">
-          
-          <button id="create-game-button">Create Game</button>
-          <h2>My games</h2>
-
-          <ul id="my-games">
-            <li>
-              <span class="status waiting">status</span>
-              <span class="game-name">Game Name</span>
-              <span class="game-players">Players</span>
-              <a href="/games/42" class="button" target="_blank">Join</a>
-            </li>
-            <li>
-              <span class="status playing">status</span>
-              <span class="game-name">Game Name</span>
-              <span class="game-players">Players</span>
-              <a href="/games/42" class="button" target="_blank">Join</a>
-            </li>
-          </ul>
-
-          <h2>Join a new game</h2>
-
-          <ul id="available-games">
-            <li>
-              <span class="status waiting">status</span>
-              <span class="game-name">Game 1</span>
-              <span class="game-players">Players</span>
-              <form method="post" action="/games/join/1">
-                <input type="text" name="password" />
-                <button type="submit">Join</button>
-              </form>
-            </li>
-            <li>
-              <span class="status waiting">status</span>
-              <span class="game-name">Game 2</span>
-              <span class="game-players">Players</span>
-              <form method="post" action="/games/join/2">
-                <button type="submit">Join</button>
-              </form>
-            </li>
-          </ul>
-        </section>
-
-        <%- include('shared/chat') %>
-    </div>
-
-    <%- include('shared/templates') %>
-    <%- include("games/create-form") %>
-  </body>
-</html>
--->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <title>GlitchVerse - Lobby</title>
   <%- include('shared/head') %>
-    <script src="/js/lobby.js" defer></script>
+  <script src="/js/lobby.js" defer></script>
 </head>
 
 <body id="lobby">
@@ -77,26 +12,20 @@
     <div class="nav-brand">
       <a href="/">GlitchVerse</a>
     </div>
-    <div class="nav-menu">
-    </div>
-    <div class="search-bar">
-      <input type="text" placeholder="Search...">
-      <button type="submit">🔍</button>
-    </div>
     <%- include('shared/nav') %>
   </nav>
 
-  <div id="container">
-    <div id="content">
-      <section id="games-listing">
-        <h2>My games</h2>
-        <ul id="my-games">
-        </ul>
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="games-section">
+        <div class="games-list-container">
+          <h2>My Games</h2>
+          <ul id="my-games"></ul>
 
-        <h2>Join a new game</h2>
-        <ul id="available-games">
-        </ul>
-      </section>
+          <h2>Join a New Game</h2>
+          <ul id="available-games"></ul>
+        </div>
+      </div>
 
       <div class="chat-container">
         <div class="chat-header">
@@ -107,9 +36,9 @@
         </div>
       </div>
     </div>
-
-    <%- include('shared/templates') %>
-    <%- include("games/create-form") %>
   </div>
+
+  <%- include('shared/templates') %>
+  <%- include("games/create-form") %>
 </body>
 </html>

@@ -197,7 +197,6 @@ function showNewGameButtonIfHost() {
 }
 
 socket.on(`game:winner:${getGameId()}`, () => {
-  console.log("收到游戏结束事件");
   gameEnded = true;
   disableGetNumberButton();
   showNewGameButtonIfHost();

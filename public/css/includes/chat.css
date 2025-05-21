@@ -7,19 +7,23 @@ section#chat {
 section#chat #messages {
   flex: 1;
   overflow-y: auto;
-  border: 1px solid var(--color-border);
-  border-radius: 5px;
-  padding: 5px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 10px;
   margin-bottom: 10px;
-  height: 700px;
-  min-height: 700px;
-  max-height: 700px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+#chat::-webkit-scrollbar,
+#messages::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 section#chat #messages .message {
   display: flex;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 section#chat #messages .message img {
@@ -33,11 +37,17 @@ section#chat #messages .message div {
   display: flex;
   flex-direction: column;
   font-size: var(--font-size-small);
+  color: var(--text-dark);
+}
+
+section#chat #messages .message div span:first-of-type {
+  color: var(--text-dark);
+  font-weight: 500;
 }
 
 section#chat #messages .message div span:last-of-type {
   font-size: var(--font-size-xsmall);
-  color: var(--color-border-light);
+  color: var(--text-dark);
 }
 
 section#chat form {
@@ -48,9 +58,11 @@ section#chat form {
 
 section#chat form input {
   width: 100%;
-  padding: 5px;
-  border: 1px solid var(--color-border);
-  flex-grow: 1;
-  border-radius: 5px;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
   margin-right: 10px;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  transition: var(--button-transition);
 }
