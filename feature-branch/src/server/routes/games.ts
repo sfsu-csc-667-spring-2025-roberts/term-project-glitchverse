@@ -1,7 +1,7 @@
 import express from "express";
 import { Request, Response } from "express";
 
-import { Game } from "../db";
+import { Game, User } from "../db";
 
 const router = express.Router();
 
@@ -191,5 +191,37 @@ router.post("/:gameId/number", async (request: Request, response: Response) => {
     response.status(500).json({ error: "Failed to generate number" });
   }
 });
+
+router.post(
+  "/:gameId/stats/win",
+  async (request: Request, response: Response) => {
+    try {
+      const { id: userId } = request.session.user!;
+
+      await User.updateStats(userId, true);
+
+      response.status(200).json({ success: true });
+    } catch (error) {
+      console.error("Error updating win stats:", error);
+      response.status(500).json({ error: "Failed to update winning stats" });
+    }
+  },
+);
+
+router.post(
+  "/:gameId/stats/played",
+  async (request: Request, response: Response) => {
+    try {
+      const { id: userId } = request.session.user!;
+
+      await User.updateStats(userId);
+
+      response.status(200).json({ success: true });
+    } catch (error) {
+      console.error("Error updating games played stats:", error);
+      response.status(500).json({ error: "Failed to update game statistics" });
+    }
+  },
+);
 
 export default router;

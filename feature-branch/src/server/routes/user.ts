@@ -3,15 +3,7 @@ import { Request, Response } from "express";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
-import db from "../db/connection";
-import bcrypt from "bcrypt";
-import {
-  GET_USER_PASSWORD,
-  UPDATE_USER_PASSWORD,
-  UPDATE_USERNAME,
-  UPDATE_AVATAR,
-  GET_USER_AVATAR,
-} from "../db/users/sql";
+import { User } from "../db";
 
 const router = express.Router();
 const upload = multer({
@@ -28,11 +20,25 @@ const upload = multer({
 });
 
 // Profile page route
-router.get("/profile", (request: Request, response: Response) => {
-  // @ts-ignore
-  response.render("user/profile", {
-    user: request.session.user,
-  });
+router.get("/profile", async (request: Request, response: Response) => {
+  try {
+    // @ts-ignore
+    const userId = request.session.user.id;
+
+    const updatedUser = await User.getById(userId);
+
+    request.session.user = updatedUser;
+
+    response.render("user/profile", {
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    response.render("user/profile", {
+      user: request.session.user,
+      error: "Failed to fetch latest user data",
+    });
+  }
 });
 
 // Update profile information
@@ -42,16 +48,12 @@ router.post("/profile", async (request: Request, response: Response) => {
     // @ts-ignore
     const userId = request.session.user.id;
 
-    const { password: storedPassword } = await db.one(GET_USER_PASSWORD, [
-      userId,
-    ]);
-
     if (current_password && new_password) {
-      const isValidPassword = await bcrypt.compare(
+      const isValidPassword = await User.validatePassword(
+        userId,
         current_password,
-        storedPassword,
       );
-      console.log("isValidPassword:", isValidPassword);
+
       if (!isValidPassword) {
         return response.render("user/profile", {
           user: request.session.user,
@@ -59,12 +61,11 @@ router.post("/profile", async (request: Request, response: Response) => {
         });
       }
 
-      const hashedPassword = await bcrypt.hash(new_password, 10);
-      await db.none(UPDATE_USER_PASSWORD, [hashedPassword, userId]);
+      await User.updatePassword(userId, new_password);
     }
 
     if (username) {
-      await db.none(UPDATE_USERNAME, [username, userId]);
+      await User.updateUsername(userId, username);
       // @ts-ignore
       request.session.user.username = username;
     }
@@ -94,8 +95,7 @@ router.post(
       // @ts-ignore
       const userId = request.session.user.id;
 
-      const responseult = await db.oneOrNone(GET_USER_AVATAR, [userId]);
-      const oldAvatarUrl = responseult?.avatar_url;
+      const oldAvatarUrl = await User.getAvatarUrl(userId);
 
       if (oldAvatarUrl) {
         const oldAvatarPath = path.join(process.cwd(), "public", oldAvatarUrl);
@@ -109,8 +109,7 @@ router.post(
       }
 
       const avatarUrl = `/uploads/avatars/${request.file.filename}`;
-
-      await db.none(UPDATE_AVATAR, [avatarUrl, userId]);
+      await User.updateAvatar(userId, avatarUrl);
 
       // @ts-ignore
       request.session.user.avatar_url = avatarUrl;

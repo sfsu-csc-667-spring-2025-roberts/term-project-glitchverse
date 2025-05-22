@@ -185,6 +185,21 @@ function announceWin() {
   socket.emit(`game:winner:${getGameId()}`);
   disableGetNumberButton();
 
+  const userId = document.querySelector<HTMLInputElement>("#user-id")?.value;
+  if (userId) {
+    fetch(`/games/${getGameId()}/stats/win`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to update win stats");
+        }
+        return response.json();
+      })
+      .catch((error) => console.error("Error updating win stats:", error));
+  }
+
   fetch(`/chat/${getGameId()}`, {
     method: "post",
     headers: { "Content-Type": "application/json" },
@@ -193,6 +208,30 @@ function announceWin() {
 
   showNewGameButtonIfHost();
 }
+
+socket.on(`game:winner:${getGameId()}`, () => {
+  gameEnded = true;
+  disableGetNumberButton();
+
+  const userId = document.querySelector<HTMLInputElement>("#user-id")?.value;
+  if (userId) {
+    fetch(`/games/${getGameId()}/stats/played`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to update games played stats");
+        }
+        return response.json();
+      })
+      .catch((error) =>
+        console.error("Error updating games played stats:", error),
+      );
+  }
+
+  showNewGameButtonIfHost();
+});
 
 function showNewGameButtonIfHost() {
   const isHost =
@@ -204,12 +243,6 @@ function showNewGameButtonIfHost() {
     }
   }
 }
-
-socket.on(`game:winner:${getGameId()}`, () => {
-  gameEnded = true;
-  disableGetNumberButton();
-  showNewGameButtonIfHost();
-});
 
 socket.on(`game:number:${getGameId()}`, (n: number) => {
   drawnNumbers.add(n);
