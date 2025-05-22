@@ -45,7 +45,8 @@ app.use("/auth", routes.auth);
 app.use("/chat", middleware.auth, routes.chat);
 app.use("/lobby", middleware.auth, routes.lobby);
 app.use("/games", middleware.auth, routes.games);
-app.use("/user", middleware.auth, routes.user); // Add this line for user routes
+app.use("/user", middleware.auth, routes.user);
+app.use("/friends", middleware.auth, routes.friends);
 
 app.use((_request, _response, next) => {
   next(httpErrors(404));

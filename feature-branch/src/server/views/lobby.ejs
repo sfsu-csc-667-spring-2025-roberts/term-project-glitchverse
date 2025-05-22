@@ -5,6 +5,7 @@
   <title>GlitchVerse - Lobby</title>
   <%- include('shared/head') %>
   <script src="/js/lobby.js" defer></script>
+  <script src="/js/friends.js" defer></script>  
 </head>
 
 <body id="lobby">
@@ -27,12 +28,22 @@
         </div>
       </div>
 
-      <div class="chat-container">
-        <div class="chat-header">
-          <button id="create-game-button">Create Game</button>
+      <div class="side-panel">
+        <div class="social-entry">
+          <button id="social-button" class="btn-primary">
+            <i class="nf nf-md-account_group"></i>
+            <span>social center</span>
+          </button>
         </div>
-        <div class="chat-content">
-          <%- include('shared/chat') %>
+
+        
+        <div class="chat-container">
+          <div class="chat-header">
+            <button id="create-game-button">Create Game</button>
+          </div>
+          <div class="chat-content">
+            <%- include('shared/chat') %>
+          </div>
         </div>
       </div>
     </div>
@@ -40,5 +51,6 @@
 
   <%- include('shared/templates') %>
   <%- include("games/create-form") %>
+  <%- include("user/social-center-modal") %> 
 </body>
 </html>

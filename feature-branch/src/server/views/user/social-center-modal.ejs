@@ -1,0 +1,38 @@
+<div id="social-center-modal" class="social-modal">
+  <div class="social-container">
+    <div class="social-header">
+      <h2>Social Center</h2>
+      <a href="#" class="close-button">
+        <i class="nf nf-md-close_circle_outline"></i>
+      </a>
+    </div>
+    
+    <div class="social-tabs">
+      <button class="tab active" data-tab="friends">Friends List</button>
+      <button class="tab" data-tab="requests">Friend Requests</button>
+      <button class="tab" data-tab="chats">Recent Chats</button>
+    </div>
+
+    <div class="tab-content">
+      <div id="friends-tab" class="tab-pane active">
+        <ul id="my-friends"></ul>
+      </div>
+      
+      <div id="requests-tab" class="tab-pane">
+        <ul id="friend-requests"></ul>
+      </div>
+
+      <div id="chats-tab" class="tab-pane">
+        <div class="chat-history"></div>
+      </div>
+    </div>
+    
+    <div class="social-actions">
+      <button id="add-friend-button" class="btn-primary" data-target="#add-friend-container">
+        <i class="nf nf-md-account_plus"></i> Add Friend
+      </button>
+    </div>
+  </div>
+</div>
+
+<%- include('add-friend-form') %>

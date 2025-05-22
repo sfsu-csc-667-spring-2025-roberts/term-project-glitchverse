@@ -7,6 +7,7 @@ export type User = {
   games_played: number;
   games_won: number;
   gravatar: string;
+  username: string | null;
 };
 
 export type DbGameUser = {
@@ -55,3 +56,5 @@ declare module "express-session" {
     user: User;
   }
 }
+
+
