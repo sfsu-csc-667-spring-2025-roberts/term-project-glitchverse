@@ -54,7 +54,7 @@ A multiplayer game framework built with TypeScript, Express, PostgreSQL, and Web
 
 Before you begin, ensure you have installed:
 
-- Node.js (v14 or higher)
+- Node.js (v20 or higher)
 - PostgreSQL (v12 or higher)
 
 ### 1. Environment Setup
