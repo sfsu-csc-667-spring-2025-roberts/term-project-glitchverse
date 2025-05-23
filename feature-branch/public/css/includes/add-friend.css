@@ -5,7 +5,7 @@
   transform: translate(-50%, -50%);
   width: auto;
   height: auto;
-  display: none;  /* 修改这里：默认隐藏 */
+  display: none;  
   justify-content: center;
   align-items: center;
   z-index: 1100;
@@ -14,11 +14,11 @@
 
 .auth-box {
   background: #ffffff;
-  padding: 1.5rem;  /* 减小内边距 */
-  border-radius: 8px;  /* 与social-modal保持一致 */
-  width: 320px;  /* 稍微减小宽度 */
+  padding: 1.5rem; 
+  border-radius: 8px;  
+  width: 320px;  
   position: relative;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);  /* 调整阴影效果 */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); 
   transform: none;
   margin: 0;
 }
@@ -29,7 +29,7 @@
   top: 1rem;
   color: #8c8c8c;
   transition: color 0.2s ease;
-  font-size: 20px;  /* 增加图标大小 */
+  font-size: 20px;  
 }
 
 .close-button:hover {
@@ -44,7 +44,7 @@
 }
 
 .auth-header h1 {
-  font-size: 18px;  /* 调整标题大小 */
+  font-size: 18px; 
   margin-bottom: 0.5rem;
   color: #262626;
   font-weight: 500;
@@ -77,9 +77,9 @@
 
 .form-group input {
   width: 100%;
-  padding: 8px 12px;  /* 调整输入框内边距 */
+  padding: 8px 12px;  
   border: 1px solid #e8e8e8;
-  border-radius: 6px;  /* 调整圆角 */
+  border-radius: 6px;  
   background: #f8f9fa;
   color: #262626;
   font-size: 14px;
@@ -95,16 +95,16 @@
 
 #add-friend-container form button {
   width: 100%;
-  padding: 8px 12px;  /* 调整按钮内边距 */
+  padding: 8px 12px;  
   background: var(--button-gradient);
   color: #ffffff;
   border: none;
-  border-radius: 6px;  /* 调整圆角 */
+  border-radius: 6px; 
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 0.5rem;  /* 减小顶部间距 */
+  margin-top: 0.5rem; 
 }
 
 #add-friend-container form button:hover {

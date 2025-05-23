@@ -17,13 +17,16 @@ router.get("/", (request: Request, response: Response) => {
         id: "bingo",
         name: "Bingo",
         description: "Classic Number Matching Game",
+        image: "/uploads/gameCovers/bingo.png",
+        status: "available"
       },
       {
         id: "uno",
         name: "UNO",
         description: "The world's most popular card game",
-      },
-      // ... other games
+        image: "/uploads/gameCovers/uno.png",
+        status: "coming_soon"
+      }
     ],
   });
 });

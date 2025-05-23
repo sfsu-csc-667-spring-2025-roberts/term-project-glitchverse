@@ -1,4 +1,4 @@
-/* 主布局样式 */
+
 body#friends-body #container #content {
   display: grid;
   grid-template-columns: 4fr 2fr;
@@ -8,7 +8,7 @@ body#friends-body #container #content {
   overflow: hidden;
 }
 
-/* 好友区域基础样式 */
+
 #friends-section {
   background: #fff;
   border-radius: 8px;
@@ -18,7 +18,7 @@ body#friends-body #container #content {
   padding: 20px;
 }
 
-/* 好友列表布局 */
+
 .friends-controls {
   margin-bottom: 20px;
 }
@@ -40,8 +40,7 @@ body#friends-body #container #content {
   color: #333;
 }
 
-/* 好友申请列表样式 */
-/* 好友申请列表容器 */
+
 #friend-requests {
   list-style: none;
   padding: 0;
@@ -49,7 +48,6 @@ body#friends-body #container #content {
   background: #fff;
 }
 
-/* 好友申请项 */
 .friend-request-item {
   display: flex;
   justify-content: space-between;
@@ -70,10 +68,9 @@ body#friends-body #container #content {
   flex: 1;
 }
 
-/* 头像容器 */
 .friend-avatar-container {
-  width: 40px;  /* 增加尺寸 */
-  height: 40px; /* 保持正方形 */
+  width: 40px; 
+  height: 40px; 
   border-radius: 4px;
   overflow: hidden;
   border: 1px solid #eee;
@@ -89,15 +86,14 @@ body#friends-body #container #content {
   display: block;
 }
 
-/* 好友申请项样式优化 */
 .friend-request-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px; /* 增加内边距 */
+  padding: 15px 20px; 
   border-bottom: 1px solid #f0f0f0;
   transition: all 0.3s ease;
-  margin-bottom: 8px; /* 增加项目间距 */
+  margin-bottom: 8px; 
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -112,14 +108,14 @@ body#friends-body #container #content {
 .friend-request-content {
   display: flex;
   align-items: center;
-  gap: 15px; /* 增加头像和文字间距 */
+  gap: 15px; 
   flex: 1;
 }
 
-/* 按钮样式优化 */
+
 .friend-actions {
   display: flex;
-  gap: 12px; /* 增加按钮间距 */
+  gap: 12px; 
 }
 
 .accept-button,
@@ -134,7 +130,7 @@ body#friends-body #container #content {
 }
 
 .accept-button {
-  background-color: #1890ff; /* 使用主题蓝色 */
+  background-color: #1890ff;
   color: #fff;
 }
 
@@ -152,7 +148,6 @@ body#friends-body #container #content {
   color: #434343;
 }
 
-/* 用户信息样式优化 */
 .friend-info {
   display: flex;
   flex-direction: column;
@@ -172,14 +167,12 @@ body#friends-body #container #content {
   line-height: 1.2;
 }
 
-/* 操作按钮区域 */
 .friend-actions {
   display: flex;
   gap: 8px;
   margin-left: 15px;
 }
 
-/* 按钮样式 */
 .accept-button,
 .reject-button {
   padding: 4px 15px;
