@@ -52,13 +52,15 @@ Before you begin, ensure you have installed:
 
 ### 1. Environment Setup
 
-Create a `.env` file in the project root directory with the following configuration:
+After cloning the repository, create a `.env` file in the project root directory with the following configuration:
 
 ```env
-# Database Configuration
+## Database Configuration
+# Example: postgres://postgres:testpassword@localhost:5432/glitchverse
 DATABASE_URL={point_to_postgres_database}
 
-# Session Configuration
+## Session Configuration
+# Type a randomized hash here
 SESSION_SECRET={your_session_secret_here}
 ```
 
@@ -73,6 +75,8 @@ npm install
 ```bash
 npm run db:migrate
 ```
+
+> Make sure your `DATABASE_URL` is set properly with credentials and the PostgreSQL server also has the database created.
 
 ### 4. Start Development Server
 
