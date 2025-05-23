@@ -3,7 +3,7 @@ import type { Request, Response, NextFunction } from "express";
 const getGameMiddleware = (
   request: Request,
   response: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   const { gameId } = request.params;
 

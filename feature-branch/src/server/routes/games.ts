@@ -34,7 +34,7 @@ router.post("/create", async (request: Request, response: Response) => {
       minPlayers,
       maxPlayers,
       password,
-      userId,
+      userId
     );
 
     response.redirect(`/games/${gameId}`);
@@ -118,7 +118,7 @@ router.post("/:gameId/leave", async (request: Request, response: Response) => {
 
     const remainingPlayers = (await Game.getInfo(gameId)).player_count;
     console.log(
-      `Player ${userId} left game ${gameId}. Remaining players: ${remainingPlayers}`,
+      `Player ${userId} left game ${gameId}. Remaining players: ${remainingPlayers}`
     );
 
     response.status(200).json({
@@ -205,7 +205,7 @@ router.post(
       console.error("Error updating win stats:", error);
       response.status(500).json({ error: "Failed to update winning stats" });
     }
-  },
+  }
 );
 
 router.post(
@@ -221,7 +221,7 @@ router.post(
       console.error("Error updating games played stats:", error);
       response.status(500).json({ error: "Failed to update game statistics" });
     }
-  },
+  }
 );
 
 export default router;

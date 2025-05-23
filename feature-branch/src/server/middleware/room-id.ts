@@ -3,7 +3,7 @@ import type { Request, Response, NextFunction } from "express";
 const authMiddleware = (
   request: Request,
   response: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   if (request.params.roomId !== undefined) {
     response.locals.roomId = request.params.roomId;

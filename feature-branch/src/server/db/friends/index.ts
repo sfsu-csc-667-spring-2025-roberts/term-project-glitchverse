@@ -78,9 +78,17 @@ const createFriendRequest = async (userId: number, friendId: number) => {
  * @param status - New status for the friendship ('accepted' or 'rejected')
  * @returns Promise resolving to the ID of the updated friendship or undefined
  */
-const updateFriendStatus = async (userId: number, friendId: number, status: 'accepted' | 'rejected') => {
+const updateFriendStatus = async (
+  userId: number,
+  friendId: number,
+  status: "accepted" | "rejected"
+) => {
   try {
-    const result = await db.oneOrNone(UPDATE_FRIEND_STATUS, [status, userId, friendId]);
+    const result = await db.oneOrNone(UPDATE_FRIEND_STATUS, [
+      status,
+      userId,
+      friendId,
+    ]);
     return result?.id;
   } catch (error) {
     console.error("Error updating friend status:", error);
@@ -154,11 +162,15 @@ const getChatHistory = async (userId: number, friendId: number) => {
 /**
  * Saves a private message to database
  * @param senderId - ID of the message sender
- * @param receiverId - ID of the message recipient 
+ * @param receiverId - ID of the message recipient
  * @param content - Message text content
  * @returns Promise resolving to message ID
  */
-const saveMessage = async (senderId: number, receiverId: number, content: string) => {
+const saveMessage = async (
+  senderId: number,
+  receiverId: number,
+  content: string
+) => {
   try {
     const result = await db.one(SAVE_MESSAGE, [senderId, receiverId, content]);
     return result.id;
@@ -177,5 +189,5 @@ export default {
   getFriendRequests,
   getFriendStatus,
   getChatHistory,
-  saveMessage
+  saveMessage,
 };

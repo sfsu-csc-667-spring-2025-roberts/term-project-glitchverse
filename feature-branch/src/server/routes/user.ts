@@ -13,7 +13,7 @@ const upload = multer({
       const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
       cb(
         null,
-        file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname),
+        file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
       );
     },
   }),
@@ -51,7 +51,7 @@ router.post("/profile", async (request: Request, response: Response) => {
     if (current_password && new_password) {
       const isValidPassword = await User.validatePassword(
         userId,
-        current_password,
+        current_password
       );
 
       if (!isValidPassword) {
@@ -125,7 +125,7 @@ router.post(
         error: "Failed to update avatar",
       });
     }
-  },
+  }
 );
 
 export default router;

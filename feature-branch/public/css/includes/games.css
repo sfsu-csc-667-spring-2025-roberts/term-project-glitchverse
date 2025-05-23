@@ -41,6 +41,12 @@ button {
   font-size: var(--button-font-size);
 }
 
+.social-button {
+  background: var(--button-social);
+  font-weight: 600;
+  box-shadow: var(--button-shadow);
+}
+
 #start-game-button,
 #new-game-button {
   background: var(--button-success);

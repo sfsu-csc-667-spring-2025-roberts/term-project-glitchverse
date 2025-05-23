@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 const timeMiddleware = (
   _request: Request,
   response: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   const currentTime = new Date().toISOString();
   console.log(`Current Time: ${currentTime}`);

@@ -4,7 +4,7 @@ import type { Express, RequestHandler } from "express";
 const configureSockets = (
   io: Server,
   app: Express,
-  sessionMiddleware: RequestHandler,
+  sessionMiddleware: RequestHandler
 ) => {
   app.set("io", io);
 

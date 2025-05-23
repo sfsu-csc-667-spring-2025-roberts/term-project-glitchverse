@@ -22,7 +22,7 @@ const create = async (
   minPlayers: string,
   maxPlayers: string,
   password: string,
-  userId: number,
+  userId: number
 ) => {
   const { id: gameId } = await db.one<{ id: number }>(CREATE_SQL, [
     name,
@@ -43,7 +43,7 @@ const join = async (userId: number, gameId: number, password: string = "") => {
       gameId,
       userId,
       password,
-    },
+    }
   );
 
   return playerCount;
@@ -70,7 +70,7 @@ const dealCards = async (
   userId: number,
   gameId: number,
   cardCount: number,
-  pile: number,
+  pile: number
 ) => {
   await db.none(DEAL_CARDS_SQL, { userId, gameId, cardCount, pile });
 };
@@ -142,7 +142,7 @@ const getState = async (gameId: number) => {
       avatar_url,
       seat,
       isCurrent,
-    }),
+    })
   );
 
   const playerInfo: Record<number, PlayerInfo> = {};
@@ -168,8 +168,8 @@ const getState = async (gameId: number) => {
         }),
         discardPiles: await Promise.all(
           [DISCARD_1, DISCARD_2, DISCARD_3, DISCARD_4].map((pile) =>
-            db.any(GET_CARD_SQL, { gameId, userId: id, limit: 162, pile }),
-          ),
+            db.any(GET_CARD_SQL, { gameId, userId: id, limit: 162, pile })
+          )
         ),
       };
     } catch (error) {
@@ -187,7 +187,7 @@ const getState = async (gameId: number) => {
           userId: 0,
           limit: 1,
         });
-      }),
+      })
     ),
     players: playerInfo,
   };
