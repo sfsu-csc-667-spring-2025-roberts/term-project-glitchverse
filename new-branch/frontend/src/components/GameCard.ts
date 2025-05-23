@@ -5,7 +5,7 @@ export function createGameCard(game: { id: number; name: string; description: st
 
   // Construct the correct image URL
   const imageUrl = game.image.startsWith("/assets/")
-    ? `http://localhost:3000${game.image}`
+    ? `http://localhost:1234${game.image}`
     : game.image;
 
   gameCard.innerHTML = `
