@@ -30,7 +30,7 @@ A multiplayer game framework built with TypeScript, Express, PostgreSQL, and Web
 ## Tech Stack
 
 - Frontend: TypeScript, WebSocket
-- Backend: Node.js, Express
+- Backend: Node.js, Express, Socket.IO
 - Database: PostgreSQL
 - Template Engine: EJS
 - Styling: CSS Modules
