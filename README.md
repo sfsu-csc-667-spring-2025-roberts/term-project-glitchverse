@@ -2,6 +2,13 @@
 
 A multiplayer game framework built with TypeScript, Express, PostgreSQL, and WebSocket.
 
+## Members of Group 13
+
+- Eiffel Valentino
+- Jiqing Liu
+- Shoaib Perouz
+- Alexander Diaz
+
 ## Core Features
 
 ### 1. User System
