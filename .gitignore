@@ -142,3 +142,7 @@ dist
 .DS_Store
 .AppleDouble
 .LSOverride
+
+.parcel-cache/
+public/js/
+bash.exe.stackdump

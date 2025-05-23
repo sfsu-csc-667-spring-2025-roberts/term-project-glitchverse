@@ -1,0 +1,79 @@
+:root {
+  --primary-gradient: linear-gradient(45deg, #ffd700, #ffa500);
+  --primary-color: #ffd700;
+  --secondary-color: #ffa500;
+  --accent-color: #ff6347;
+
+  --bg-dark: #1a1a1a;
+  --bg-light: #ffffff;
+  --bg-darker: #141414;
+  --bg-card: #242424;
+  --bg-hover: #2a2a2a;
+
+  --button-gradient: linear-gradient(45deg, #ffd700, #ffa500);
+  --button-hover: linear-gradient(45deg, #ffe44d, #ffb833);
+  --button-unavailable: #555555;
+
+  --status-waiting: #ffd700;
+  --status-playing: #4caf50;
+
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --text-muted: #999999;
+
+  --border-color: #333333;
+  --border-hover: #ffd700;
+
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.3);
+
+  --color-border: #777;
+  --color-border-light: #aaa;
+
+  --font-size-l: 24px;
+  --font-size: 16px;
+  --font-size-small: 14px;
+  --font-size-xsmall: 10px;
+
+  --button-padding: 12px 24px;
+  --button-border-radius: 6px;
+  --button-font-weight: 600;
+  --button-transition: all 0.3s ease;
+  --button-min-width: 120px;
+  --button-height: 40px;
+  --button-font-size: 14px;
+  --button-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  --button-hover-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --button-hover-transform: translateY(-2px);
+  --button-social: #3b5998;
+
+  --button-success: #4caf50;
+  --button-success-hover: #45a049;
+  --button-danger: #f44336;
+  --button-danger-hover: #da190b;
+  --button-info: #2196f3;
+  --button-info-hover: #1976d2;
+
+  --text-light: #ffffff;
+  --text-dark: #141414;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
