@@ -16,6 +16,8 @@
 @import url("/css/includes/games.css");
 @import url("/css/includes/create-game-form.css");
 @import url("/css/includes/profile.css");
+@import url("/css/includes/friends.css");
+@import url("/css/includes/add-friend.css");
 
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;

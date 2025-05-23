@@ -1,3 +1,4 @@
+// Interface for game room data structure
 interface Game {
   id: number;
   status: string;
@@ -7,22 +8,26 @@ interface Game {
   password?: string;
 }
 
+// DOM element references
 const createGameButton = document.querySelector("#create-game-button");
 const createGameContainer = document.querySelector("#create-game-container");
 const closeButton = document.querySelector("#close-create-game-form");
 
+// Show create game modal
 createGameButton?.addEventListener("click", (event) => {
   event.preventDefault();
 
   createGameContainer?.classList.add("visible");
 });
 
+// Close create game modal
 closeButton?.addEventListener("click", (event) => {
   event.preventDefault();
 
   createGameContainer?.classList.remove("visible");
 });
 
+// Click background to close modal
 createGameContainer?.addEventListener("click", (event) => {
   if (createGameContainer !== event.target) {
     return;
@@ -31,9 +36,12 @@ createGameContainer?.addEventListener("click", (event) => {
   createGameContainer?.classList.remove("visible");
 });
 
+// Fetch and update game list from server
 async function updateGamesList() {
   try {
+    // Get game data from API
     const response = await fetch("/games/list");
+    
     if (!response.ok) {
       const errorText = await response.text();
       console.error("sever Error:", errorText);
@@ -44,8 +52,10 @@ async function updateGamesList() {
       availableGames: Game[];
     };
 
+    // Update My Games section
     const myGamesList = document.querySelector("#my-games");
     if (myGamesList) {
+      // Generate HTML for joined games
       myGamesList.innerHTML = (myGames || [])
         .map(
           (game) => `
@@ -60,8 +70,10 @@ async function updateGamesList() {
         .join("");
     }
 
+    // Update Available Games section  
     const availableGamesList = document.querySelector("#available-games");
     if (availableGamesList) {
+      // Generate HTML for public games
       availableGamesList.innerHTML = (availableGames || [])
         .map(
           (game) => `
@@ -79,10 +91,12 @@ async function updateGamesList() {
         .join("");
     }
   } catch (error) {
-    console.error("failed to fetch game list:", error);
+    console.error("Failed to fetch game list:", error);
   }
 }
 
+// Initial load
 updateGamesList();
 
-//setInterval(updateGamesList, 5000);
+// Refresh game list every 5 seconds
+setInterval(updateGamesList, 5000);

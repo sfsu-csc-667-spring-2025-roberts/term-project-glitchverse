@@ -1,16 +1,20 @@
 import { getGameId } from "./utils";
 import { socket } from "./sockets";
 
+// Game state variables
 let isMyTurn = false;
 let gameEnded = false;
 
 const drawnNumbers = new Set<number>();
+
+// DOM element references
 const startGameButton = document.querySelector("#start-game-button");
 const leaveGameButton = document.querySelector("#leave-game-button");
 const getNumberButton = document.querySelector(
   "#get-number-button",
 ) as HTMLButtonElement;
 
+// Create new game button for host
 function createNewGameButton(gameControls: Element) {
   if (!document.querySelector("#new-game-button")) {
     const newGameButton = document.createElement("button");
@@ -23,12 +27,14 @@ function createNewGameButton(gameControls: Element) {
   }
 }
 
+// Disable number drawing button
 function disableGetNumberButton() {
   if (getNumberButton) {
     getNumberButton.disabled = true;
   }
 }
 
+// Update button state based on turn
 function updateGetNumberButton() {
   if (gameEnded) {
     disableGetNumberButton();
@@ -43,6 +49,7 @@ function updateGetNumberButton() {
   }
 }
 
+// Start game button handler
 startGameButton?.addEventListener("click", (event) => {
   event.preventDefault();
   fetch(`/games/${getGameId()}/start`, {
@@ -52,6 +59,7 @@ startGameButton?.addEventListener("click", (event) => {
   });
 });
 
+// Leave game button handler
 leaveGameButton?.addEventListener("click", async (event) => {
   event.preventDefault();
   try {
@@ -70,6 +78,7 @@ leaveGameButton?.addEventListener("click", async (event) => {
   }
 });
 
+// Generate BINGO card with random numbers
 function generateBingoCard() {
   const grid = document.querySelector(".bingo-grid");
   if (!grid) return;
@@ -114,6 +123,7 @@ function generateBingoCard() {
         cardNumbers.push(value);
       }
 
+      // Handle cell click events
       cell.addEventListener("click", () => {
         if (cell.classList.contains("marked") || value === "FREE") return;
 
@@ -134,6 +144,7 @@ function generateBingoCard() {
 
 const announcedLines = new Set<string>();
 
+// Check for completed lines and patterns
 function checkLine() {
   const cells = Array.from(document.querySelectorAll(".bingo-cell"));
   const markedCells = cells.map((cell) => cell.classList.contains("marked"));
@@ -167,11 +178,13 @@ function checkLine() {
   checkAndAnnounce([0, 6, 12, 18, 24], "main diagonal", "diag-main");
   checkAndAnnounce([4, 8, 12, 16, 20], "anti-diagonal", "diag-sub");
 
+  // Full card check
   if (markedCells.every((marked) => marked)) {
     announceWin();
   }
 }
 
+// Announce line completion in chat
 function announceLineInChat(lineType: string) {
   fetch(`/chat/${getGameId()}`, {
     method: "post",
@@ -180,7 +193,9 @@ function announceLineInChat(lineType: string) {
   }).catch((error) => console.error("Error sending line announcement:", error));
 }
 
+// Handle win condition
 function announceWin() {
+  // Update game state
   gameEnded = true;
   socket.emit(`game:winner:${getGameId()}`);
   disableGetNumberButton();
@@ -244,7 +259,9 @@ function showNewGameButtonIfHost() {
   }
 }
 
+// Socket.io game event listeners
 socket.on(`game:number:${getGameId()}`, (n: number) => {
+  // Update drawn numbers display
   drawnNumbers.add(n);
 
   const calledNumberDiv = document.querySelector("#called-number");

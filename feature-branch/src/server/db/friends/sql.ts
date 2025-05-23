@@ -49,3 +49,31 @@ export const GET_FRIEND_STATUS = `
   WHERE (user_id = $1 AND friend_id = $2) 
   OR (user_id = $2 AND friend_id = $1)
 `;
+
+// ... existing code ...
+export const GET_CHAT_HISTORY = `
+  SELECT 
+    m.id,
+    m.sender_id as "fromId",
+    m.receiver_id as "toId",
+    m.message as content,
+    m.created_at as timestamp,
+    m.is_read,
+    u.username as "senderName",
+    u.avatar_url as "senderAvatar",
+    u.gravatar as "senderGravatar"
+  FROM friend_messages m
+  JOIN users u ON m.sender_id = u.id
+  WHERE 
+    (m.sender_id = $1 AND m.receiver_id = $2)
+    OR (m.sender_id = $2 AND m.receiver_id = $1)
+  ORDER BY m.created_at ASC
+`;
+
+export const SAVE_MESSAGE = `
+  INSERT INTO friend_messages 
+    (sender_id, receiver_id, message, created_at)
+  VALUES 
+    ($1, $2, $3, CURRENT_TIMESTAMP)
+  RETURNING id
+`;

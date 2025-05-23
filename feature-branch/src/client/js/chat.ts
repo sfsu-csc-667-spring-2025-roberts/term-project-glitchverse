@@ -1,58 +1,54 @@
+// Import necessary modules and types
 import { ChatMessage } from "global";
 import { socket } from "./sockets";
 import { cloneTemplate, getGameId } from "./utils";
 
-const messageContainer =
-  document.querySelector<HTMLDivElement>("#chat #messages");
-
+// DOM element references
+const messageContainer = document.querySelector<HTMLDivElement>("#chat #messages");
 const chatForm = document.querySelector<HTMLFormElement>("#chat form");
 const chatInput = document.querySelector<HTMLInputElement>("#chat input");
 
-socket.on(
-  `chat:message:${getGameId()}`,
-  ({ message, sender, timestamp }: ChatMessage) => {
-    const container = cloneTemplate<HTMLDivElement>("#chat-message-template");
+// Socket.io listener for incoming chat messages
+socket.on(`chat:message:${getGameId()}`, ({ message, sender, timestamp }: ChatMessage) => {
+  // Clone message template from HTML
+  const container = cloneTemplate<HTMLDivElement>("#chat-message-template");
 
-    const img = container.querySelector<HTMLImageElement>("img")!;
-    img.src =
-      sender.avatar_url ||
-      `https://gravatar.com/avatar/${sender.gravatar}?d=identicon`;
-    img.alt = `Avatar for ${sender.email}`;
+  // Set avatar image source
+  const img = container.querySelector<HTMLImageElement>("img")!;
+  img.src = sender.avatar_url || `https://gravatar.com/avatar/${sender.gravatar}?d=identicon`;
+  img.alt = `Avatar for ${sender.email}`;
 
-    container.querySelector<HTMLSpanElement>(
-      "div span:first-of-type",
-    )!.innerText = message;
-    container.querySelector<HTMLSpanElement>(
-      "div span:last-of-type",
-    )!.innerText = new Date(timestamp).toLocaleTimeString();
+  // Update message content and timestamp
+  container.querySelector<HTMLSpanElement>("div span:first-of-type")!.innerText = message;
+  container.querySelector<HTMLSpanElement>("div span:last-of-type")!.innerText =
+    new Date(timestamp).toLocaleTimeString();
 
-    messageContainer!.appendChild(container);
+  // Append new message to container
+  messageContainer!.appendChild(container);
 
-    messageContainer?.scrollTo({
-      top: messageContainer.scrollHeight,
-      behavior: "smooth",
-    });
-  },
-);
+  // Auto-scroll to bottom with smooth animation
+  messageContainer?.scrollTo({
+    top: messageContainer.scrollHeight,
+    behavior: "smooth",
+  });
+});
 
+// Handle form submission for sending messages
 chatForm?.addEventListener("submit", (event) => {
   event.preventDefault();
 
+  // Get and validate message input
   const message = chatInput?.value;
-  if (!message) {
-    return;
-  }
+  if (!message) return;
 
+  // Clear input field
   chatInput.value = "";
 
+  // Send message to server
   fetch(`/chat/${getGameId()}`, {
     method: "post",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      message,
-    }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message }),
   }).catch((error) => {
     console.error("Error sending message:", error);
   });
