@@ -2,6 +2,8 @@
 
 A multiplayer game framework built with TypeScript, Express, PostgreSQL, and WebSocket.
 
+[Demo Video Link](https://youtu.be/VzeH13jL_Hc)
+
 ## Members of Group 13
 
 - Eiffel Valentino
